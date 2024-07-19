@@ -2,9 +2,9 @@
 
 Produto do teste da aplicação Golden Raspberry Awards para front end web, adaptado para Flutter mobile. 
 
-## Descriptio
+## Description
 
-O projeto foi construido utilizando algumas camadas do clean architerure como data(chamada de services neste projeto) e domain;
+O projeto foi construido utilizando algumas camadas do clean architere como data(chamada de services neste projeto) e domain;
 Na camada Features, temos as duas páginas existentes no app, representando suas funcionalidades;
 Foi utilizado o atributo drawer do widget Scafold para navegar entre as páginas, sendo elas gerenciadas dentro de um pageView;
 Usado injeção de dependêcias com o package Get_it;
