@@ -8,9 +8,10 @@ Map<String, String> _commonHeaders = {
 
 class BuildBaseOptions {
   BaseOptions _baseOptions = BaseOptions();
-  BuildBaseOptions  buildBaseUrl() => this.._baseOptions =
-      _baseOptions.copyWith(baseUrl: const String.fromEnvironment("BASE_URL"));
-BuildBaseOptions buildCommonHeaders() => this
+  BuildBaseOptions buildBaseUrl() => this
+    .._baseOptions = _baseOptions.copyWith(
+        baseUrl: const String.fromEnvironment("BASE_URL"));
+  BuildBaseOptions buildCommonHeaders() => this
     .._baseOptions = _baseOptions.copyWith(
       headers: {
         ..._baseOptions.headers,
@@ -19,6 +20,5 @@ BuildBaseOptions buildCommonHeaders() => this
     );
 
   BaseOptions build() => _baseOptions;
-BaseOptions call() => build();
-  
+  BaseOptions call() => build();
 }

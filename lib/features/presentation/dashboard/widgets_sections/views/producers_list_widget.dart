@@ -40,8 +40,7 @@ class ProducersList extends StatelessWidget {
                   .toList(),
             ),
             const SizedBox(height: 8.0),
-            const Text('Minimo',
-                style: TextStyle(fontWeight: FontWeight.bold)),
+            const Text('Minimo', style: TextStyle(fontWeight: FontWeight.bold)),
             DataTable(
               columnSpacing: 15,
               columns: const [

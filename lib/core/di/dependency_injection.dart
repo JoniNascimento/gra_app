@@ -7,11 +7,12 @@ import 'package:logging/logging.dart';
 final GetIt inject = GetIt.instance;
 
 void setupInjection() {
-
   final logger = Logger('Meu Logger')..level = Level.ALL;
 
   inject
     ..registerLazySingleton(() => logger)
-    ..registerLazySingleton<Dio>(() => Dio( BuildBaseOptions().buildBaseUrl().buildCommonHeaders().build()))
-    ..registerLazySingleton<AwardsService>(() => AwardsService(inject.get<Dio>(), inject.get<Logger>()));
+    ..registerLazySingleton<Dio>(() =>
+        Dio(BuildBaseOptions().buildBaseUrl().buildCommonHeaders().build()))
+    ..registerLazySingleton<AwardsService>(
+        () => AwardsService(inject.get<Dio>(), inject.get<Logger>()));
 }

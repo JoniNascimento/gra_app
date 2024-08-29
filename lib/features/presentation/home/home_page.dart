@@ -4,8 +4,8 @@ import 'package:gra_app/features/presentation/film_list/list_page.dart';
 
 class HomePage extends StatelessWidget {
   late final PageController pageController;
-  HomePage({super.key}){
-    pageController= PageController(initialPage: 0);
+  HomePage({super.key}) {
+    pageController = PageController(initialPage: 0);
   }
 
   @override
@@ -43,7 +43,7 @@ class HomePage extends StatelessWidget {
                   duration: const Duration(milliseconds: 300),
                   curve: Curves.ease,
                 );
-                 Navigator.of(context).pop();
+                Navigator.of(context).pop();
               },
             ),
           ],

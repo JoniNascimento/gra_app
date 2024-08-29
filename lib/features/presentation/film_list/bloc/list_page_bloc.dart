@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gra_app/services/domain/entities/movie_entity.dart';
+import 'package:gra_app/services/domain/entities/movies_profile_entity/movies_profile_entity.dart';
+import 'package:gra_app/services/domain/enums/winners_filter_enum.dart';
 import 'package:gra_app/services/services/awards_service.dart';
 
 part 'list_page_event.dart';
@@ -19,11 +21,11 @@ class ListPageBloc extends Bloc<ListPageEvent, ListPageState> {
   Future<void> _onFecthMovies(
       ListPageFetchMoviesEvent event, Emitter<ListPageState> emit) async {
     emit(ListPageLoadingState());
-
     try {
-      final List<MovieEntity> movies = await _awardsService
-          .getMovieWinnersByYear(winners: event.winners, year: event.year ?? '1980');
-      emit(ListPageLoadedState(movies: movies));
+      final movieProfile =
+          await _awardsService.getAllMovies(winners: event.winners, size: 20, page: event.page);
+     
+      emit(ListPageLoadedState(movieProfile: movieProfile));
     } catch (e) {
       emit(ListPageErrorState(message: e.toString()));
     }

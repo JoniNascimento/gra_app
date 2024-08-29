@@ -13,7 +13,7 @@ class ListPageErrorState extends ListPageState {
 }
 
 class ListPageLoadedState extends ListPageState {
-  final List<MovieEntity> movies;
+  final MoviesProfileEntity movieProfile;
 
-  ListPageLoadedState({required this.movies});
+  ListPageLoadedState({required this.movieProfile});
 }

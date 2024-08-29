@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gra_app/core/di/dependency_injection.dart';
 import 'package:gra_app/features/presentation/dashboard/widgets_sections/bloc/dashboard_bloc.dart';
-import 'package:gra_app/features/presentation/dashboard/widgets_sections/views/movie_year_list_widget.dart';
+import 'package:gra_app/features/presentation/dashboard/widgets_sections/views/component/movie_year_list_widget.dart';
 import 'package:gra_app/features/presentation/dashboard/widgets_sections/views/producers_list_widget.dart';
 import 'package:gra_app/features/presentation/dashboard/widgets_sections/views/studios_list_widget.dart';
 import 'package:gra_app/features/presentation/dashboard/widgets_sections/views/years_list_widget.dart';

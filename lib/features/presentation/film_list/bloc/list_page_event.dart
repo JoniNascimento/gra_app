@@ -4,7 +4,9 @@ abstract class ListPageEvent {}
 
 class ListPageFetchMoviesEvent extends ListPageEvent {
   final String? year;
-  final bool winners;
+  final FilterWinners? winners;
+  final int? page;
 
-  ListPageFetchMoviesEvent({this.winners = true, this.year});
+  ListPageFetchMoviesEvent(
+      {this.winners = FilterWinners.todos, this.year = '', this.page = 1});
 }
