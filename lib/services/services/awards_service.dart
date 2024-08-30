@@ -1,8 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:gra_app/services/domain/entities/awards_interval_producers.dart';
 import 'package:gra_app/services/domain/entities/movie_entity.dart';
+import 'package:gra_app/services/domain/entities/movies_profile_entity/movies_profile_entity.dart';
 import 'package:gra_app/services/domain/entities/studio_winners.dart';
 import 'package:gra_app/services/domain/entities/year_winners.dart';
+import 'package:gra_app/services/domain/enums/winners_filter_enum.dart';
 import 'package:logging/logging.dart';
 
 class AwardsService {
@@ -87,12 +89,39 @@ class AwardsService {
   }
 
   Future<List<MovieEntity>> getMovieWinnersByYear(
-      {String? year, required bool winners}) async {
+      {String? year}) async {
     try {
-      final response = await _dio.get('?winner=$winners&year=$year');
+      final response = await _dio.get('?winner=true&year=$year');
       final List<dynamic> responseBody = response.data;
       return List.generate(responseBody.length,
           (index) => MovieEntity.fromMap(responseBody[index]));
+    } on DioException catch (dioException) {
+      _logger.severe(
+        dioException.message,
+        dioException.error,
+        StackTrace.current,
+      );
+      rethrow;
+    } catch (e, stackTrace) {
+      _logger.severe(e, null, stackTrace);
+      rethrow;
+    }
+  }
+
+  Future<MoviesProfileEntity> getAllMovies(
+      {int? page = 1, int? size = 10, FilterWinners? winners, String year = ''}) async {
+    try {
+      final String query = [
+      'page=$page',
+      'size=$size',
+      if (winners == FilterWinners.sim) 'winner=true',
+      if (year.isNotEmpty) 'year=$year',
+    ].join('&');
+
+      final response = await _dio.get('?$query');     
+
+      final Map<String,dynamic> responseBody = response.data;
+      return  MoviesProfileEntity.fromMap(responseBody);
     } on DioException catch (dioException) {
       _logger.severe(
         dioException.message,

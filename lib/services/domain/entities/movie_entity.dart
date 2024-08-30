@@ -18,16 +18,17 @@ class MovieEntity extends Equatable {
   });
 
   factory MovieEntity.fromMap(Map<String, dynamic> json) {
-  
-  return MovieEntity(
-        id: json['id'],
-        year: json['year'],
-        title: json['title'],
-        studios: List.generate(json['studios'].length, (index) => json['studios'][index]),
-        producers: List.generate(json['producers'].length, (index) => json['producers'][index]),
-        winner: json['winner'],
-      );
-}
+    return MovieEntity(
+      id: json['id'],
+      year: json['year'],
+      title: json['title'],
+      studios: List.generate(
+          json['studios'].length, (index) => json['studios'][index]),
+      producers: List.generate(
+          json['producers'].length, (index) => json['producers'][index]),
+      winner: json['winner'],
+    );
+  }
 
   Map<String, dynamic> toMap() => {
         'id': id,

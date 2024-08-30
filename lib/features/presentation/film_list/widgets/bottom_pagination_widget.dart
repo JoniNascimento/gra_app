@@ -1,16 +1,35 @@
 import 'package:flutter/material.dart';
 
 class BottomPaginationWidget extends StatelessWidget {
-  BottomPaginationWidget(
-      {super.key, required this.onPageChanged, required int listLength}) {
-    _totalPages =
-        (listLength ~/ _itemsPerPage) < 1 ? 1 : (listLength ~/ _itemsPerPage);
+  const BottomPaginationWidget({
+    Key? key,
+    required this.onPageChanged,
+    required this.listLength,
+    required this.itemsPerPage,
+    required this.totalPages,
+    required this.selectedPage,
+  }) : super(key: key);
+
+  final void Function(int selectedPage) onPageChanged;
+  final int listLength;
+  final int selectedPage;
+  final int itemsPerPage;
+  final int totalPages;
+
+  void _onFirstPage() => onPageChanged(1);
+  void _onPreviousPage() {
+    if (selectedPage > 1) {
+      onPageChanged(selectedPage - 1);
+    }
   }
-  final void Function(int selectedPage)? onPageChanged;
-  final int listLength = 1;
-  int _selectedPage = 1;
-  final int _itemsPerPage = 10;
-  int _totalPages = 1;
+
+  void _onNextPage() {
+    if (selectedPage < totalPages) {
+      onPageChanged(selectedPage + 1);
+    }
+  }
+
+  void _onLastPage() => onPageChanged(totalPages);
 
   @override
   Widget build(BuildContext context) {
@@ -21,28 +40,20 @@ class BottomPaginationWidget extends StatelessWidget {
         children: [
           IconButton(
             icon: const Icon(Icons.first_page),
-            onPressed: () {
-              _selectedPage = 1;
-            },
+            onPressed: _onFirstPage,
           ),
           IconButton(
             icon: const Icon(Icons.navigate_before),
-            onPressed: () {
-              if (_selectedPage > 1) _selectedPage--;
-            },
+            onPressed: _onPreviousPage,
           ),
-          Text('$_selectedPage / $_totalPages'),
+          Text('$selectedPage / $totalPages'),
           IconButton(
             icon: const Icon(Icons.navigate_next),
-            onPressed: () {
-              if (_selectedPage < _totalPages) _selectedPage++;
-            },
+            onPressed: _onNextPage,
           ),
           IconButton(
             icon: const Icon(Icons.last_page),
-            onPressed: () {
-              _selectedPage = _totalPages;
-            },
+            onPressed: _onLastPage,
           ),
         ],
       ),
