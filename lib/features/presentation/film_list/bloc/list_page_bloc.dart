@@ -20,12 +20,34 @@ class ListPageBloc extends Bloc<ListPageEvent, ListPageState> {
 
   Future<void> _onFecthMovies(
       ListPageFetchMoviesEvent event, Emitter<ListPageState> emit) async {
-    emit(ListPageLoadingState());
     try {
-      final movieProfile =
-          await _awardsService.getAllMovies(winners: event.winners, size: 20, page: event.page);
-     
-      emit(ListPageLoadedState(movieProfile: movieProfile));
+      final currentState = state;
+      emit(ListPageLoadingState());
+      int diferencesPagesApi = 0;
+      int currentPages = 0;
+
+      ///Joni Nascimento
+      ///Ajuste necessário devido ao comportamento da api de não retornar dados
+      ///se o numero de itens maximos passados for maior que o tamanho da lista
+      if(event.page! > 1){
+        if (currentState is ListPageLoadedState) {
+        if (event.page == currentState.movieProfile.totalPages) {
+          diferencesPagesApi = currentState.movieProfile.numberOfElements! ~/
+              currentState.movieProfile.size!;
+
+          currentPages = currentState.movieProfile.totalPages!;
+        }
+      }
+      }
+      final size = (event.year.isNotEmpty && event.winners == FilterWinners.sim) ? 1 : diferencesPagesApi > 0 ? diferencesPagesApi : 10;
+
+      final movieProfile = await _awardsService.getAllMovies(
+          winners: event.winners,
+          size: size,
+          page: event.page, year: event.year);
+
+
+      emit(ListPageLoadedState(movieProfile: currentPages > 0 ?  movieProfile.copyWith(totalPages:currentPages ) : movieProfile));
     } catch (e) {
       emit(ListPageErrorState(message: e.toString()));
     }
